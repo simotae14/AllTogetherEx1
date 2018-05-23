@@ -53,7 +53,7 @@ class AddUser extends Component {
                         onChange={this.handleUsername}
                     />
                 </div>
-
+                <button disabled={this.state.areEmpty}>Add</button>
             </form>
         );
     }
