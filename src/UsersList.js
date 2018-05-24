@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import User from './User';
 
 class UsersList extends Component {
@@ -7,6 +8,9 @@ class UsersList extends Component {
         this.state = {
             showGamesPlayed: true
         }
+    }
+    static propTypes = {
+        users: PropTypes.array.isRequired
     }
     handleShowGames = () => {
         this.setState((prevState) => ({
