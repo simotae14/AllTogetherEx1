@@ -79,3 +79,19 @@ button:disabled {
 .error {
   color: red;
 }
+
+.error-message {
+  width:275px;
+  text-align:center;
+  font-size:14px;
+  line-height:1em;
+  background-color:#f0523d;
+  color:#fff;
+  position:absolute;
+  padding:15px;
+  opacity:0;
+  z-index:-1
+}
+.error-message.show {
+  opacity:1
+}

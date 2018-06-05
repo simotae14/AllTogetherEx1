@@ -9,11 +9,13 @@ class AddUser extends Component {
             firstName: '',
             lastName: '',
             username: '',
-            gamePlayed: 0
+            gamePlayed: 0,
+            exists: false
         }
     }
     static propTypes = {
-        onCreateUser: PropTypes.func.isRequired
+        onCreateUser: PropTypes.func.isRequired,
+        users: PropTypes.array.isRequired
     };
     handleFirstName = (event) => {
         this.setState({
@@ -29,6 +31,16 @@ class AddUser extends Component {
         this.setState({
             username: event.target.value
         })
+        // check present
+        if (this.props.users.some( user => user.username.toLowerCase() === event.target.value)) {
+            this.setState({
+                exists: false
+            })
+        } else {
+            this.setState({
+                exist: true
+            })
+        }
     }
 	handleSubmit = (event) => {
     	event.preventDefault();
@@ -36,7 +48,7 @@ class AddUser extends Component {
     	const values = serializeForm(event.target, {
         	hash: true
     	});
-      	if(this.props.onCreateUser) {
+      	if(this.props.onCreateUser && !this.state.exists) {
             this.props.onCreateUser(values);
         }
     }
@@ -71,7 +83,8 @@ class AddUser extends Component {
                         onChange={this.handleUsername}
                     />
                 </div>
-                <button disabled={this.state.username === '' || this.state.lastName === '' || this.state.firstName === ''}>Add</button>
+                <div className={"error-message " + (this.state.exists ? 'show' : '')}>Please try again.</div>
+                <button disabled={this.state.username === '' || this.state.lastName === '' || this.state.firstName === '' || this.state.exists}>Add</button>
             </form>
         );
     }
