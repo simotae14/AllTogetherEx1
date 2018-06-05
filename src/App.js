@@ -28,7 +28,9 @@ class App extends Component {
     };
   }
   onCreateUser = (user) => {
-    console.log('user', user);
+    this.setState((currentState) => ({
+      users: currentState.users.concat([user])
+    }))
   }
   render() {
     return (

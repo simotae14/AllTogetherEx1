@@ -2,15 +2,6 @@ import React, { Component } from 'react';
 import serializeForm from 'form-serialize';
 import PropTypes from 'prop-types';
 
-/*
-Create a React app that lets us add a user's first name, last name, and
-username. When the user is added, the number of games that he/she has played is
-defaulted to 0. Each username has to be unique, so we cannot add multiple users
-with the same username. When someone clicks "Add" but the username already
-exists, the app should not allow for a duplicate user to be added and should
-show an error message instead.
-*/
-
 class AddUser extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +9,6 @@ class AddUser extends Component {
             firstName: '',
             lastName: '',
             username: '',
-            gamePlayed: 0,
             exists: false
         }
     }
@@ -50,15 +40,15 @@ class AddUser extends Component {
                 exists: false
             })
         }
-        console.log('exists:', this.state.exists);
     }
 	handleSubmit = (event) => {
     	event.preventDefault();
       	// serialize the form inputs
     	const values = serializeForm(event.target, {
         	hash: true
-    	});
-      	if(this.props.onCreateUser && !this.state.exists) {
+        });
+        values.gamesPlayed = 0;
+        if(this.props.onCreateUser && !this.state.exists) {
             this.props.onCreateUser(values);
         }
     }
