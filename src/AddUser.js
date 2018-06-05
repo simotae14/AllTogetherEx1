@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import serializeForm from 'form-serialize';
+import PropTypes from 'prop-types';
 
 class AddUser extends Component {
     constructor(props) {
@@ -11,6 +12,9 @@ class AddUser extends Component {
             gamePlayed: 0
         }
     }
+    static propTypes = {
+        onCreateUser: PropTypes.func.isRequired
+    };
     handleFirstName = (event) => {
         this.setState({
             firstName: event.target.value
@@ -32,7 +36,9 @@ class AddUser extends Component {
     	const values = serializeForm(event.target, {
         	hash: true
     	});
-      	console.log('value', values);
+      	if(this.props.onCreateUser) {
+            this.props.onCreateUser(values);
+        }
     }
     render() {
         return (
@@ -65,7 +71,7 @@ class AddUser extends Component {
                         onChange={this.handleUsername}
                     />
                 </div>
-                <button disabled={this.state.areEmpty}>Add</button>
+                <button disabled={this.state.username === '' || this.state.lastName === '' || this.state.firstName === ''}>Add</button>
             </form>
         );
     }

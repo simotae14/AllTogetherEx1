@@ -27,11 +27,14 @@ class App extends Component {
       ]
     };
   }
+  onCreateUser = (user) => {
+    console.log('user', user);
+  }
   render() {
     return (
       <div className="App">
         <Header logo={logo} />
-        <AddUser />
+        <AddUser onCreateUser={this.onCreateUser} />
         <UsersList users={this.state.users} />
       </div>
     );
