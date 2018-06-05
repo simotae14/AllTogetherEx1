@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import serializeForm from 'form-serialize';
 
 class AddUser extends Component {
     constructor(props) {
@@ -25,14 +26,23 @@ class AddUser extends Component {
             username: event.target.value
         })
     }
+	handleSubmit = (event) => {
+    	event.preventDefault();
+      	// serialize the form inputs
+    	const values = serializeForm(event.target, {
+        	hash: true
+    	});
+      	console.log('value', values);
+    }
     render() {
         return (
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <h3>Create a new User</h3>
                 <div>
                     <input
                         type="text"
                         placeholder="firstname"
+             			name="firstName"
                         value={this.state.firstName}
                         onChange={this.handleFirstName}
                     />
@@ -41,6 +51,7 @@ class AddUser extends Component {
                    <input
                         type="text"
                         placeholder="lastname"
+                        name="lastName"
                         value={this.state.lastName}
                         onChange={this.handleLastName}
                     />
@@ -49,6 +60,7 @@ class AddUser extends Component {
                    <input
                         type="text"
                         placeholder="username"
+                        name="username"
                         value={this.state.username}
                         onChange={this.handleUsername}
                     />
