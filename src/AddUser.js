@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import serializeForm from 'form-serialize';
 import PropTypes from 'prop-types';
 
+/*
+Create a React app that lets us add a user's first name, last name, and
+username. When the user is added, the number of games that he/she has played is
+defaulted to 0. Each username has to be unique, so we cannot add multiple users
+with the same username. When someone clicks "Add" but the username already
+exists, the app should not allow for a duplicate user to be added and should
+show an error message instead.
+*/
+
 class AddUser extends Component {
     constructor(props) {
         super(props);
@@ -34,13 +43,14 @@ class AddUser extends Component {
         // check present
         if (this.props.users.some( user => user.username.toLowerCase() === event.target.value)) {
             this.setState({
-                exists: false
+                exists: true
             })
         } else {
             this.setState({
-                exist: true
+                exists: false
             })
         }
+        console.log('exists:', this.state.exists);
     }
 	handleSubmit = (event) => {
     	event.preventDefault();
@@ -83,7 +93,7 @@ class AddUser extends Component {
                         onChange={this.handleUsername}
                     />
                 </div>
-                <div className={"error-message " + (this.state.exists ? 'show' : '')}>Please try again.</div>
+                <div className={"error-message " + (this.state.exists ? 'show' : '')}>This user is duplicated. Try again!</div>
                 <button disabled={this.state.username === '' || this.state.lastName === '' || this.state.firstName === '' || this.state.exists}>Add</button>
             </form>
         );
