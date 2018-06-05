@@ -34,7 +34,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header logo={logo} />
-        <AddUser onCreateUser={this.onCreateUser} />
+        <AddUser onCreateUser={this.onCreateUser} users={this.state.users} />
         <UsersList users={this.state.users} />
       </div>
     );
